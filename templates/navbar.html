@@ -28,15 +28,15 @@
                 </li>
                 
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link tm-btn tm-btn-secondary ml-3" href="{% url 'dashboard' %}">Dashboard</a>
+                <li class="nav-item ml-lg-3 mt-2 mt-lg-0">
+                    <a class="tm-btn tm-btn-secondary w-100" href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link tm-btn tm-btn-primary ml-2" href="{% url 'logout' %}?next=/">Logout</a>
+                <li class="nav-item ml-lg-2 mt-2 mt-lg-0">
+                    <a class="tm-btn tm-btn-primary w-100" href="{% url 'logout' %}?next=/">Logout</a>
                 </li>
                 {% else %}
-                <li class="nav-item">
-                    <a class="nav-link tm-btn tm-btn-primary ml-3" href="{% url 'register' %}">Get Started</a>
+                <li class="nav-item ml-lg-3 mt-2 mt-lg-0">
+                    <a class="tm-btn tm-btn-primary w-100" href="{% url 'register' %}">Get Started</a>
                 </li>
                 {% endif %}
             </ul>
