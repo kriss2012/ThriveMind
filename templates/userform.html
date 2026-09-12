@@ -1,0 +1,31 @@
+{% load crispy_forms_tags %}
+
+<form method="post" action="" enctype="multipart/form-data" novalidate>
+  {% csrf_token %}
+  <div class="row" style="row-gap: 1rem;">
+    <div class="col-12">
+      {{ user_form.username|as_crispy_field }}
+    </div>
+    <div class="col-12">
+      {{ user_form.email|as_crispy_field }}
+    </div>
+    <div class="col-12">
+      {{ user_form.password|as_crispy_field }}
+    </div>
+    <div class="col-12">
+      {{ profile_form.phone|as_crispy_field }}
+    </div>
+    <div class="col-md-6">
+      {{ profile_form.age|as_crispy_field }}
+    </div>
+    <div class="col-md-6">
+      {{ profile_form.region|as_crispy_field }}
+    </div>
+  </div>
+  
+  <button type="submit" name="_submit" class="tm-btn tm-btn-primary" style="width: 100%; margin-top: 1.5rem;">Create Account</button>
+  
+  <div class="text-center" style="margin-top: 1.5rem; font-size: 0.875rem;">
+    <span class="text-muted">Already have an account?</span> <a href="{% url 'login' %}">Login</a>
+  </div>
+</form>

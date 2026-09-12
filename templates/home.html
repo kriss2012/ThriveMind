@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="ThriveMind is your personal self-help and wellness companion.">
+    <meta name="author" content="ThriveMind">
+
+    <title>ThriveMind - Your Personal Self-Help & Wellness Companion</title>
+  </head>
+
+  <body>
+    {% block content %}
+      <!-- Hero Section -->
+      <section class="tm-hero" style="position: relative; overflow: hidden; background-color: var(--background); padding: 8rem 0 6rem; text-align: center;">
+        <!-- Abstract background elements -->
+        <div style="position: absolute; top: -20%; left: -10%; width: 50%; height: 50%; background: radial-gradient(circle, rgba(32, 185, 120, 0.15) 0%, rgba(255,255,255,0) 70%); border-radius: 50%; z-index: 0;"></div>
+        <div style="position: absolute; bottom: -20%; right: -10%; width: 60%; height: 60%; background: radial-gradient(circle, rgba(15, 159, 154, 0.1) 0%, rgba(255,255,255,0) 70%); border-radius: 50%; z-index: 0;"></div>
+        
+        <div class="tm-container" style="position: relative; z-index: 1;">
+          <img src="{% static 'brand/thrivemind-icon.svg' %}" alt="ThriveMind Symbol" width="80" height="80" style="margin: 0 auto 2rem; opacity: 0.9;">
+          <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem; color: var(--foreground); letter-spacing: -1px;">A healthier mind helps you thrive.</h1>
+          <p style="font-size: 1.25rem; max-width: 600px; margin: 0 auto 3rem; color: var(--muted); font-weight: 400; line-height: 1.6;">A modern wellness system designed to help you understand yourself, build healthier habits, manage stress, and make meaningful progress.</p>
+          <div class="d-flex justify-content-center flex-wrap" style="gap: 1rem;">
+            <a href="{% url 'screen_test' %}" class="tm-btn tm-btn-primary" style="font-size: 1.125rem;">Start Your Wellness Journey</a>
+            <a href="#features" class="tm-btn tm-btn-secondary" style="font-size: 1.125rem;">Explore ThriveMind</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trust / Value Section -->
+      <section style="padding: 4rem 0; background-color: var(--surface); text-align: center; border-bottom: 1px solid var(--border);">
+        <div class="tm-container">
+          <h2 style="font-size: 2rem; margin-bottom: 1rem;">A Safe Space for Your Wellbeing</h2>
+          <p class="text-muted" style="max-width: 700px; margin: 0 auto; font-size: 1.125rem;">We provide a calm, modern, and accessible platform to get initial support, connect with therapy resources, and engage in meaningful self-reflection.</p>
+        </div>
+      </section>
+
+      <!-- Core Features -->
+      <section id="features" style="padding: 6rem 0; background-color: var(--background);">
+        <div class="tm-container">
+          <h2 class="text-center" style="font-size: 2.5rem; margin-bottom: 4rem;">Core Features</h2>
+          
+          <div class="row" style="row-gap: 2rem;">
+            <!-- Feature 1 -->
+            <div class="col-md-4">
+              <div class="tm-card h-100 text-center">
+                <div style="width: 64px; height: 64px; background-color: rgba(15, 118, 110, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Wellness Screening</h3>
+                <p class="text-muted" style="margin-bottom: 1.5rem;">Take a 3-minute private screening test to evaluate your mental health indicators and get personalized insights.</p>
+                <a href="{% url 'screen_test' %}" class="text-primary font-weight-bold">Take Test &rarr;</a>
+              </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="col-md-4">
+              <div class="tm-card h-100 text-center">
+                <div style="width: 64px; height: 64px; background-color: rgba(15, 118, 110, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">CBT Integration</h3>
+                <p class="text-muted" style="margin-bottom: 1.5rem;">Learn about Cognitive Behavioral Therapy and connect with professionals to work on cognitive restructuring.</p>
+                <a href="{% url 'viewCBT' %}" class="text-primary font-weight-bold">Learn More &rarr;</a>
+              </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="col-md-4">
+              <div class="tm-card h-100 text-center">
+                <div style="width: 64px; height: 64px; background-color: rgba(15, 118, 110, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                </div>
+                <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Draw My Life</h3>
+                <p class="text-muted" style="margin-bottom: 1.5rem;">Engage in behavioral activation through creative sketching challenges designed to rebuild confidence.</p>
+                <a href="{% url 'sampledraw' 1 %}" class="text-primary font-weight-bold">Try Drawing &rarr;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Join Section -->
+      <section style="padding: 6rem 0; background-color: var(--surface);">
+        <div class="tm-container row align-items-center">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Join the Community</h2>
+            <p class="text-muted mb-4" style="font-size: 1.125rem;">Create an account today to access your personal dashboard, track your progress, and take the first step towards a healthier you.</p>
+            <a href="{% url 'register' %}" class="tm-btn tm-btn-primary">Register Now</a>
+          </div>
+          <div class="col-md-6 text-center">
+            <div style="background-color: var(--background); padding: 3rem; border-radius: var(--radius-xl); border: 1px solid var(--border);">
+              <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" style="margin-bottom: 1.5rem; opacity: 0.8;">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <h3 style="font-size: 1.5rem;">You are not alone</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer style="background-color: #0f172a; color: #94a3b8; padding: 4rem 0 2rem;">
+        <div class="tm-container">
+          <div class="row mb-5">
+            <div class="col-md-4 mb-4 mb-md-0">
+              <h3 style="color: white; font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">ThriveMind</h3>
+              <p style="font-size: 0.875rem; line-height: 1.6;">Your personal self-help & wellness companion. Understand yourself, build healthier habits, and thrive every day.</p>
+            </div>
+            <div class="col-md-4 mb-4 mb-md-0">
+              <h4 style="color: white; font-size: 1.125rem; margin-bottom: 1rem;">Features</h4>
+              <ul class="list-unstyled" style="font-size: 0.875rem;">
+                <li style="margin-bottom: 0.5rem;"><a href="{% url 'screen_test' %}" style="color: #94a3b8;">Wellness Screening</a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="{% url 'viewCBT' %}" style="color: #94a3b8;">Therapy & CBT</a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="{% url 'locate' %}" style="color: #94a3b8;">Locate Centers</a></li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h4 style="color: white; font-size: 1.125rem; margin-bottom: 1rem;">Legal</h4>
+              <ul class="list-unstyled" style="font-size: 0.875rem;">
+                <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #94a3b8;">Privacy Policy</a></li>
+                <li style="margin-bottom: 0.5rem;"><a href="#" style="color: #94a3b8;">Terms of Service</a></li>
+              </ul>
+            </div>
+          </div>
+          <div style="border-top: 1px solid #334155; padding-top: 2rem; text-align: center; font-size: 0.875rem;">
+            <p>&copy; 2026 ThriveMind. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    {% endblock %}
+  </body>
+</html>

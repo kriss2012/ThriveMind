@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="tm-container" style="padding-top: 100px; padding-bottom: 60px;">
+  <div class="text-center" style="margin-bottom: 3rem;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--foreground);">Find Wellness Centers</h1>
+    <p style="color: var(--muted); font-size: 1.125rem;">Locate professional mental health and wellness centers near you.</p>
+  </div>
+  
+  <div class="tm-card" style="padding: 0; overflow: hidden; border-radius: var(--radius-xl);">
+    <div id="map" style="width: 100%; height: 60vh; min-height: 400px; background-color: var(--background-secondary);"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<!-- Fixed leading slash in map.js to ensure initMap is loaded before the callback -->
+<script type="text/javascript" src="{% static 'admin/js/map.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPyRQIHGd710WPbbXHVaUZOM-MC_5PqQk&libraries=places&callback=initMap" async defer></script>
+{% endblock %}

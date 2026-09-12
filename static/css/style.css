@@ -1,0 +1,190 @@
+:root {
+  /* Colors - ThriveMind Brand System */
+  --primary-dark: #073B45;
+  --primary: #0F9F9A;
+  --primary-hover: #0c807b;
+  --emerald: #20B978;
+  --mint: #B9F3D5;
+  
+  --background: #F7FBFA;
+  --background-secondary: #EEF7F5;
+  --surface: #FFFFFF;
+  --surface-elevated: #FFFFFF;
+  
+  --foreground: #073B45;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  
+  --success: #20B978;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px 0 rgb(7 59 69 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(7 59 69 / 0.1), 0 2px 4px -2px rgb(7 59 69 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(7 59 69 / 0.1), 0 4px 6px -4px rgb(7 59 69 / 0.1);
+  
+  /* Transitions */
+  --transition: 200ms ease-in-out;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--emerald));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #061F27;
+    --background-secondary: #073B45;
+    --surface: #0a2d38;
+    --surface-elevated: #0d3846;
+    
+    --foreground: #F7FBFA;
+    --muted: #9eb1c7;
+    --border: #0d3846;
+  }
+}
+
+/* Global Reset & Base */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--foreground);
+  margin-top: 0;
+  line-height: 1.2;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--primary-hover);
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-primary { color: var(--primary) !important; }
+.text-muted { color: var(--muted) !important; }
+
+/* Buttons */
+.tm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: none;
+  font-family: var(--font-sans);
+}
+
+.tm-btn-primary {
+  background-color: var(--primary);
+  color: white !important;
+}
+
+.tm-btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.tm-btn-secondary {
+  background-color: transparent;
+  color: var(--primary) !important;
+  border: 2px solid var(--primary);
+}
+
+.tm-btn-secondary:hover {
+  background-color: var(--primary);
+  color: white !important;
+}
+
+/* Layout */
+.tm-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+/* Navbar Customizations */
+.tm-navbar {
+  background: rgba(var(--surface-rgb), 0.8) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-3) 0;
+}
+
+/* Cards */
+.tm-card {
+  background-color: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.tm-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Forms */
+.tm-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.tm-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}

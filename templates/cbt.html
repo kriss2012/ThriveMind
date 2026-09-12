@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="tm-container" style="padding-top: 100px; padding-bottom: 60px; min-height: calc(100vh - 80px);">
+  <div class="tm-card" style="max-width: 800px; margin: 0 auto;">
+    <div style="width: 64px; height: 64px; background-color: rgba(15, 118, 110, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+    </div>
+    
+    <h1 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Cognitive-Behavioral Therapy (CBT)</h1>
+    <h2 style="font-size: 1.5rem; color: var(--primary); margin-bottom: 1.5rem;">14-Week Guided Course</h2>
+    
+    <p style="font-size: 1.125rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.8;">
+      Cognitive-behavioral therapy (CBT) is a psycho-social intervention that is widely used for improving mental health. Guided by research, CBT focuses on developing personal coping strategies that target solving current problems and changing unhelpful patterns in cognitions (thoughts, beliefs, and attitudes), behaviors, and emotional regulation.
+    </p>
+
+    <hr style="border: 0; border-top: 1px solid var(--border); margin: 2rem 0;">
+
+    {% if user.is_authenticated and registered %}
+      <div style="background-color: rgba(16, 185, 129, 0.1); padding: 1.5rem; border-radius: var(--radius-md); margin-bottom: 2rem; border-left: 4px solid var(--success);">
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--foreground);">You are enrolled!</h3>
+        <p style="margin: 0; color: var(--muted);">You are doing well. Keep up the great work and check your dashboard for progress updates.</p>
+      </div>
+    {% else %}
+      <div style="background-color: var(--background); padding: 1.5rem; border-radius: var(--radius-md); margin-bottom: 2rem;">
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Start Your Journey</h3>
+        <p style="margin: 0; color: var(--muted);">This course will help you connect to your nearest therapist and a program that will span over 14 Weeks. Register your details so we can find the best match for you.</p>
+      </div>
+    {% endif %}
+
+    <div style="margin-top: 2rem;">
+      {% if user.is_authenticated %}
+        {% if registered %}
+          <a class="tm-btn tm-btn-primary" href="{% url 'dashboard' %}">Check Progress</a>
+        {% else %}
+          <a class="tm-btn tm-btn-primary" href="{% url 'registerCBT' %}">Apply for CBT Course</a>
+        {% endif %}
+      {% else %}
+        <a class="tm-btn tm-btn-primary" href="{% url 'register' %}">Create Account to Apply</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

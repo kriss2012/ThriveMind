@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="tm-container" style="padding-top: 100px; padding-bottom: 60px;">
+  <div class="tm-card" style="max-width: 800px; margin: 0 auto;">
+    <div class="text-center" style="margin-bottom: 3rem;">
+      <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Wellness Screening Test</h1>
+      <p style="color: var(--muted); font-size: 1.125rem;"><i>Note: This is a preliminary screening tool. Please consult a qualified mental health expert for a thorough diagnosis.</i></p>
+    </div>
+
+    <form class="screen-form">
+      
+      <!-- Question 1 -->
+      <div style="margin-bottom: 2rem; padding: 1.5rem; background-color: var(--background); border-radius: var(--radius-md);">
+        <p style="font-weight: 600; font-size: 1.125rem; margin-bottom: 1rem;">1. Little interest or pleasure in doing things</p>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <label><input type="radio" name="1" value="10" checked> Not at all</label>
+          <label><input type="radio" name="1" value="20"> Several days</label>
+          <label><input type="radio" name="1" value="30"> More than half of the days</label>
+          <label><input type="radio" name="1" value="40"> Nearly every day</label>
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+      <div style="margin-bottom: 2rem; padding: 1.5rem; background-color: var(--background); border-radius: var(--radius-md);">
+        <p style="font-weight: 600; font-size: 1.125rem; margin-bottom: 1rem;">2. Feeling down, depressed, or hopeless</p>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <label><input type="radio" name="2" value="10" checked> Not at all</label>
+          <label><input type="radio" name="2" value="20"> Several days</label>
+          <label><input type="radio" name="2" value="30"> More than half of the days</label>
+          <label><input type="radio" name="2" value="40"> Nearly every day</label>
+        </div>
+      </div>
+
+      <!-- Question 3 -->
+      <div style="margin-bottom: 2rem; padding: 1.5rem; background-color: var(--background); border-radius: var(--radius-md);">
+        <p style="font-weight: 600; font-size: 1.125rem; margin-bottom: 1rem;">3. Trouble sleeping or sleeping too much</p>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <label><input type="radio" name="3" value="10" checked> Not at all</label>
+          <label><input type="radio" name="3" value="20"> Several days</label>
+          <label><input type="radio" name="3" value="30"> More than half of the days</label>
+          <label><input type="radio" name="3" value="40"> Nearly every day</label>
+        </div>
+      </div>
+
+      <!-- Question 4 -->
+      <div style="margin-bottom: 2rem; padding: 1.5rem; background-color: var(--background); border-radius: var(--radius-md);">
+        <p style="font-weight: 600; font-size: 1.125rem; margin-bottom: 1rem;">4. Poor appetite or overeating</p>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <label><input type="radio" name="4" value="10" checked> Not at all</label>
+          <label><input type="radio" name="4" value="20"> Several days</label>
+          <label><input type="radio" name="4" value="30"> More than half of the days</label>
+          <label><input type="radio" name="4" value="40"> Nearly every day</label>
+        </div>
+      </div>
+
+      <!-- Question 5 -->
+      <div style="margin-bottom: 2rem; padding: 1.5rem; background-color: var(--background); border-radius: var(--radius-md);">
+        <p style="font-weight: 600; font-size: 1.125rem; margin-bottom: 1rem;">5. Trouble concentrating on things, such as reading or watching television</p>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <label><input type="radio" name="5" value="10" checked> Not at all</label>
+          <label><input type="radio" name="5" value="20"> Several days</label>
+          <label><input type="radio" name="5" value="30"> More than half of the days</label>
+          <label><input type="radio" name="5" value="40"> Nearly every day</label>
+        </div>
+      </div>
+
+      <!-- Question 6 -->
+      <div style="margin-bottom: 2rem; padding: 1.5rem; background-color: var(--background); border-radius: var(--radius-md);">
+        <p style="font-weight: 600; font-size: 1.125rem; margin-bottom: 1rem;">6. Thoughts that you would be better off dead, or of hurting yourself</p>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <label><input type="radio" name="6" value="10" checked> Not at all</label>
+          <label><input type="radio" name="6" value="20"> Several days</label>
+          <label><input type="radio" name="6" value="30"> More than half of the days</label>
+          <label><input type="radio" name="6" value="40"> Nearly every day</label>
+        </div>
+      </div>
+
+      <!-- Question 7 -->
+      <div style="margin-bottom: 2rem; padding: 1.5rem; background-color: var(--background); border-radius: var(--radius-md);">
+        <p style="font-weight: 600; font-size: 1.125rem; margin-bottom: 1rem;">7. Feeling bad about yourself, or that you are a failure</p>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <label><input type="radio" name="7" value="10" checked> Not at all</label>
+          <label><input type="radio" name="7" value="20"> Several days</label>
+          <label><input type="radio" name="7" value="30"> More than half of the days</label>
+          <label><input type="radio" name="7" value="40"> Nearly every day</label>
+        </div>
+      </div>
+
+      <div class="text-center" style="margin-top: 3rem;">
+        <button type="button" class="tm-btn tm-btn-primary" id="srceenTest" style="width: 100%; max-width: 300px; font-size: 1.125rem;">Submit Assessment</button>
+      </div>
+      
+      <div id="resultCard" style="display: none; margin-top: 2rem; padding: 2rem; background-color: rgba(15, 118, 110, 0.1); border-radius: var(--radius-md); border: 1px solid var(--primary); text-align: center;">
+        <h3 style="margin-bottom: 1rem; color: var(--primary);">Assessment Complete</h3>
+        <p id="Score" style="font-size: 1.25rem; font-weight: 600; margin: 0;"></p>
+      </div>
+
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+document.getElementById('srceenTest').addEventListener('click',function(e){
+  e.preventDefault();
+  var score = [];
+  for(i=1;i<=7;i++){
+    let t = document.getElementsByName(String(i));
+    t.forEach(radio=>{if(radio.checked) score.push(parseInt(radio.value))});
+  }
+  
+  const sumScore = (accumulator, currentValue) => accumulator + currentValue;
+  const min  = 70;
+  const max = 280;
+  
+  if (score.length === 0) return;
+  
+  const total = score.reduce(sumScore);
+  const finalScore = ((total-min)/(max-min))*100;
+  
+  document.getElementById('resultCard').style.display = 'block';
+  document.getElementById('Score').innerHTML = 'Calculated Wellness Indicator: ' + String(parseInt(finalScore)) + '%';
+});
+</script>
+{% endblock %}

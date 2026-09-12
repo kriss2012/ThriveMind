@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid p-0" style="min-height: 100vh; display: flex;">
+  <!-- Left Side: Branding -->
+  <div class="d-none d-md-flex col-md-5 flex-column justify-content-center align-items-center" style="background: var(--gradient-primary); color: white; padding: 4rem; position: sticky; top: 0; height: 100vh;">
+    <div style="text-align: center; max-width: 400px;">
+      <svg viewBox="0 0 100 100" width="120" height="120" style="margin-bottom: 2rem; opacity: 0.9;">
+        <!-- White Stacked Icon representation -->
+        <circle cx="50" cy="50" r="46" fill="none" stroke="white" stroke-width="4" opacity="0.3"/>
+        <path d="M50 10 C 20 10, 5 35, 15 65 C 25 95, 60 95, 75 75 C 90 55, 80 20, 50 10 Z" fill="white" opacity="0.9"/>
+        <path d="M50 10 C 65 10, 75 25, 75 40 C 75 45, 70 48, 70 52 C 70 55, 74 58, 72 65 C 70 70, 60 80, 50 85 C 40 85, 30 75, 30 60 C 30 40, 40 20, 50 10 Z" fill="rgba(15, 159, 154, 1)"/>
+        <path d="M75 25 C 85 15, 95 10, 95 20 C 95 30, 85 35, 75 25 Z" fill="#20B978"/>
+      </svg>
+      <h2 style="color: white; font-size: 2.5rem; margin-bottom: 1rem;">Join ThriveMind</h2>
+      <p style="font-size: 1.125rem; font-weight: 300; opacity: 0.9;">A mind that grows. Start building healthier habits and a better understanding of yourself today.</p>
+    </div>
+  </div>
+
+  <!-- Right Side: Form -->
+  <div class="col-12 col-md-7 d-flex flex-column justify-content-center align-items-center" style="background-color: var(--background); padding: 6rem 2rem;">
+    <div style="width: 100%; max-width: 500px;">
+      <!-- Mobile Logo -->
+      <div class="d-md-none text-center mb-4">
+        <img src="{% static 'brand/thrivemind-icon.svg' %}" alt="ThriveMind" width="64" height="64">
+      </div>
+      
+      {% if registered %}
+      <div class="text-center">
+        <div style="width: 64px; height: 64px; background-color: rgba(32, 185, 120, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <h2 style="margin-bottom: 1rem; color: var(--foreground);">Welcome to ThriveMind!</h2>
+        <p class="text-muted" style="margin-bottom: 2rem;">Your account has been successfully created. We're glad to have you here.</p>
+        <a href="{% url 'login' %}" class="tm-btn tm-btn-primary" style="width: 100%;">Proceed to Login</a>
+      </div>
+      {% else %}
+      <h3 style="margin-bottom: 2rem; color: var(--foreground); font-weight: 700;">Create your account</h3>
+      {% include 'userform.html' %}
+      {% endif %}
+      
+    </div>
+  </div>
+</div>
+{% endblock %}

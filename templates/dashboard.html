@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid p-0" style="background-color: var(--background); min-height: calc(100vh - 80px); padding-top: 100px !important;">
+  <div class="tm-container">
+    <div class="d-flex justify-content-between align-items-center flex-wrap" style="margin-bottom: 2rem; gap: 1rem;">
+      <div>
+        <h1 style="font-size: 2.5rem; margin: 0; color: var(--foreground);">Good morning, {{user.user|default:"Friend"}}</h1>
+        <p style="color: var(--muted); font-size: 1.125rem; margin-top: 0.5rem;">Take a moment to check in with yourself.</p>
+      </div>
+      <a class="tm-btn tm-btn-secondary" href="{% url 'logout' %}?next=/">Sign Out</a>
+    </div>
+
+    <!-- Top Overview Row -->
+    <div class="row" style="margin-bottom: 2rem;">
+      <div class="col-md-8 mb-4 mb-md-0">
+        <div class="tm-card h-100" style="background: var(--gradient-primary); color: white; border: none; padding: 2.5rem;">
+          <h3 style="font-size: 1.25rem; margin-bottom: 1rem; color: rgba(255,255,255,0.9);">Your Wellness Score</h3>
+          <div class="d-flex align-items-end" style="gap: 1rem;">
+            <span style="font-size: 4rem; font-weight: 700; line-height: 1;">82</span>
+            <span style="font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--mint);">+4% this week</span>
+          </div>
+          <p style="margin-top: 1rem; font-size: 1.125rem; opacity: 0.9;">Your consistency is growing. Great job showing up for yourself today.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="tm-card h-100">
+          <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem; color: var(--foreground); display: flex; align-items: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" class="mr-2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            Profile
+          </h3>
+          <ul class="list-unstyled" style="font-size: 1rem; color: var(--muted);">
+            <li class="mb-2"><strong style="color: var(--foreground);">Name:</strong> {{user.user}}</li>
+            <li class="mb-2"><strong style="color: var(--foreground);">Age:</strong> {{user.age|default:"-"}}</li>
+            <li class="mb-2"><strong style="color: var(--foreground);">Region:</strong> {{user.region|default:"-"}}</li>
+            {% if cbt.therapist %}
+            <li class="mb-2"><strong style="color: var(--foreground);">Therapist:</strong> {{cbt.therapist.name}}</li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action & Sessions Row -->
+    <div class="row">
+      <div class="col-md-4 mb-4 mb-md-0">
+        <div class="tm-card h-100" style="background-color: rgba(32, 185, 120, 0.05); border: 1px solid rgba(32, 185, 120, 0.2);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--foreground);">Quick Check-In</h3>
+          <p style="color: var(--muted); margin-bottom: 1.5rem;">How are you feeling today? Track your patterns over time.</p>
+          <a class="tm-btn tm-btn-primary w-100" href="{% url 'screen_test' %}">Start Check-in</a>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="tm-card h-100">
+          <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem; color: var(--foreground);">Upcoming Sessions & Therapy</h3>
+          {% if therapy %}
+          <div class="row" style="row-gap: 1.5rem;">
+            {% for th in therapy %}
+               {% if not th.is_past_due %}
+               <div class="col-md-6">
+                  <div style="border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem; transition: all var(--transition);" class="hover-lift">
+                    <h4 style="font-size: 1.125rem; margin-bottom: 0.5rem;">
+                      <a href="{% url 'session' th.pk %}" style="color: var(--primary); text-decoration: none;">Week {{th.week_no}}</a>
+                    </h4>
+                    <p class="text-muted" style="font-size: 0.875rem; margin-bottom: 0;">{{th.challenge|truncatewords:8}}</p>
+                  </div>
+               </div>
+               {% endif %}
+            {% endfor %}
+          </div>
+          {% else %}
+          <div class="text-center" style="padding: 2rem 0;">
+            <div style="width: 64px; height: 64px; background-color: rgba(15, 159, 154, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <p class="text-muted" style="margin-bottom: 1.5rem;">Your wellness journey starts here. Explore CBT to begin.</p>
+            <a class="tm-btn tm-btn-secondary" href="{% url 'registerCBT' %}">Explore CBT Therapy</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.hover-lift:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--primary) !important; }
+</style>
+{% endblock %}

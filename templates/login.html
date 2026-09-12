@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container-fluid p-0" style="min-height: 100vh; display: flex;">
+  <!-- Left Side: Branding -->
+  <div class="d-none d-md-flex col-md-6 flex-column justify-content-center align-items-center" style="background: var(--gradient-primary); color: white; padding: 4rem;">
+    <div style="text-align: center; max-width: 400px;">
+      <svg viewBox="0 0 100 100" width="120" height="120" style="margin-bottom: 2rem; opacity: 0.9;">
+        <!-- White Stacked Icon representation -->
+        <circle cx="50" cy="50" r="46" fill="none" stroke="white" stroke-width="4" opacity="0.3"/>
+        <path d="M50 10 C 20 10, 5 35, 15 65 C 25 95, 60 95, 75 75 C 90 55, 80 20, 50 10 Z" fill="white" opacity="0.9"/>
+        <path d="M50 10 C 65 10, 75 25, 75 40 C 75 45, 70 48, 70 52 C 70 55, 74 58, 72 65 C 70 70, 60 80, 50 85 C 40 85, 30 75, 30 60 C 30 40, 40 20, 50 10 Z" fill="rgba(15, 159, 154, 1)"/>
+        <path d="M75 25 C 85 15, 95 10, 95 20 C 95 30, 85 35, 75 25 Z" fill="#20B978"/>
+      </svg>
+      <h2 style="color: white; font-size: 2.5rem; margin-bottom: 1rem;">Welcome Back</h2>
+      <p style="font-size: 1.125rem; font-weight: 300; opacity: 0.9;">Take a moment to check in with yourself. Your wellness journey continues here.</p>
+    </div>
+  </div>
+
+  <!-- Right Side: Form -->
+  <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center" style="background-color: var(--background); padding: 4rem 2rem;">
+    <div style="width: 100%; max-width: 400px;">
+      <!-- Mobile Logo -->
+      <div class="d-md-none text-center mb-4">
+        <img src="{% static 'brand/thrivemind-icon.svg' %}" alt="ThriveMind" width="64" height="64">
+      </div>
+      <h3 style="margin-bottom: 2rem; color: var(--foreground); font-weight: 700;">Sign In</h3>
+      
+      <form method="post" class="tm-form">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button type="submit" class="tm-btn tm-btn-primary" style="width: 100%; margin-top: 1.5rem; font-size: 1.125rem;">Login</button>
+      </form>
+      
+      <div class="text-center" style="margin-top: 2rem; font-size: 0.875rem;">
+        <span class="text-muted">Don't have an account?</span> <a href="{% url 'register' %}" style="font-weight: 600;">Sign up</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,431 @@
+{% extends 'base.html' %}
+{% block style %}
+body {
+  background-color: var(--background);
+}
+.container-body{
+	margin-top: 100px;
+}
+.container-for-sketchApp {
+  max-width: 800px;
+  background-color: var(--surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+#sketchPad {
+  background-color: var(--surface);
+  background-image: url('http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/tiny_grid.png');
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.toolbar {
+  background-color: var(--surface);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.sketchPad {
+  background-color: transparent;
+}
+
+.fontButtons {
+  color: var(--foreground);
+}
+
+.colorButton {
+  background-color: red;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  margin: 2px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.colorButton:hover {
+  transform: scale(1.1);
+}
+
+.control-pad-holder {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: transparent;
+}
+
+.controller-button {
+  background-color: var(--primary);
+  color: white;
+  text-align: center;
+  border: none;
+}
+.controller-button:hover {
+  background-color: var(--primary-hover);
+  color: white;
+}
+
+.dud:hover {
+  cursor: default !important;
+}
+{% endblock %}
+
+{% block content %}
+
+<body>
+  <div class="tm-container container-body" style="padding-top: 100px; padding-bottom: 60px;">
+  	<div style="background: var(--gradient-primary); padding: 2rem; border-radius: var(--radius-lg); margin-bottom: 2rem; color: white;">
+      <h1 style="margin: 0; font-size: 2rem; display: flex; align-items: center;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-3"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+        {{challenge}}
+      </h1>
+      <p style="margin-top: 0.5rem; font-size: 1.125rem; opacity: 0.9; margin-bottom: 0;">Express yourself freely. This canvas is for you.</p>
+    </div>
+    
+    <div class="row" style="gap: 2rem 0;">
+      <div class="col-md-3">
+        <div class="toolbar tm-card h-100" style="padding: 1.5rem; margin-bottom: 0;">
+          <h4 style="font-size: 1.125rem; margin-bottom: 1rem; color: var(--foreground); font-weight: 600;">Tools</h4>
+          <div class="btn-toolbar d-flex flex-wrap" role="toolbar" style="margin-bottom: 2rem; gap: 0.5rem;">
+            <button type="button" class="btn tm-btn-secondary" id="eraser" onclick="eraser()" style="padding: 0.5rem 1rem;"><i class="fa fa-eraser"></i></button>
+            <button type="button" class="btn tm-btn-secondary" id="pencil" onclick="pencil()" style="padding: 0.5rem 1rem;"><i class="fa fa-pencil"></i></button>
+            <button type="button" class="btn tm-btn-secondary" id="text" onclick="textBox()" style="padding: 0.5rem 1rem;"><i class="fa fa-font"></i></button>
+            <button type="button" class="btn tm-btn-secondary" id="save" onclick="savePic()" style="padding: 0.5rem 1rem;"><i class="fa fa-save"></i></button>
+            <button type="button" class="btn" style="background-color: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); border-radius: var(--radius-md); padding: 0.5rem 1rem;" id="clear" onclick="clearAll()"><i class="fa fa-trash"></i></button>
+          </div>
+          
+          <h4 style="font-size: 1.125rem; margin-bottom: 1rem; color: var(--foreground); font-weight: 600;">Fonts & Sizes</h4>
+          <div class="d-flex flex-column gap-2" style="margin-bottom: 2rem;">
+            <div class="btn-toolbar d-flex" role="toolbar" style="gap: 0.5rem;">
+              <button onclick="setFont('Arimo')" type="button" class="btn tm-btn-secondary" style="flex: 1;"><span style="font-family: 'Arimo', sans-serif;">Sans</span></button>
+              <button onclick="setFont('Special Elite')" type="button" class="btn tm-btn-secondary" style="flex: 1;"><span style="font-family: 'Special Elite', monospace;">Mono</span></button>
+            </div>
+            <div class="btn-toolbar d-flex" role="toolbar" style="gap: 0.5rem;">
+              <button onclick="setFontSize('30px')" type="button" class="btn tm-btn-secondary" style="flex: 1;"><span>Aa</span></button>
+              <button onclick="setFontSize('50px')" type="button" class="btn tm-btn-secondary" style="flex: 1;"><span style="font-size:1.2rem">Aa</span></button>
+            </div>
+          </div>
+          
+          <h4 style="font-size: 1.125rem; margin-bottom: 1rem; color: var(--foreground); font-weight: 600;">Colors</h4>
+          <div class="d-flex flex-wrap" style="gap: 8px;">
+            <button style="background:#61BD6D" onclick="setColor('#61BD6D')" type="button" class="colorButton"></button>
+            <button style="background:#1ABC9C" onclick="setColor('#1ABC9C')" type="button" class="colorButton"></button>
+            <button style="background:#54ACD2" onclick="setColor('#54ACD2')" type="button" class="colorButton"></button>
+            <button style="background:#2C82C9" onclick="setColor('#2C82C9')" type="button" class="colorButton"></button>
+            
+            <button style="background:#41A85F" onclick="setColor('#41A85F')" type="button" class="colorButton"></button>
+            <button style="background:#00A885" onclick="setColor('#00A885')" type="button" class="colorButton"></button>
+            <button style="background:#3D8EB9" onclick="setColor('#3D8EB9')" type="button" class="colorButton"></button>
+            <button style="background:#2969B0" onclick="setColor('#2969B0')" type="button" class="colorButton"></button>
+            
+            <button style="background:#9365B8" onclick="setColor('#9365B8')" type="button" class="colorButton"></button>
+            <button style="background:#553982" onclick="setColor('#553982')" type="button" class="colorButton"></button>
+            <button style="background:#475577" onclick="setColor('#475577')" type="button" class="colorButton"></button>
+            <button style="background:#28324E" onclick="setColor('#28324E')" type="button" class="colorButton"></button>
+            
+            <button style="background:#F7DA64" onclick="setColor('#F7DA64')" type="button" class="colorButton"></button>
+            <button style="background:#FBA026" onclick="setColor('#FBA026')" type="button" class="colorButton"></button>
+            <button style="background:#EB6B56" onclick="setColor('#EB6B56')" type="button" class="colorButton"></button>
+            <button style="background:#E14938" onclick="setColor('#E14938')" type="button" class="colorButton"></button>
+            
+            <button style="background:#EFEFEF; border: 1px solid #ddd;" onclick="setColor('#EFEFEF')" type="button" class="colorButton"></button>
+            <button style="background:#D1D5D8" onclick="setColor('#D1D5D8')" type="button" class="colorButton"></button>
+            <button style="background:#75706B" onclick="setColor('#75706B')" type="button" class="colorButton"></button>
+            <button style="background:#1B1B1B" onclick="setColor('#1B1B1B')" type="button" class="colorButton"></button>
+          </div>
+        </div>
+      </div>
+      <div class="sketchPad col-md-9">
+        <div class="tm-card" style="padding: 0; overflow: hidden; height: 100%; border: 4px solid var(--border);">
+          <canvas id="sketchPad" width="800" height="600" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+            Not compatible with this browser
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="control-pad-holder">
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <button class="btn btn-secondary controller-button mb-1" id="controller-up-button" onclick="scrollButton(0,-100)">
+        <i class="fa fa-angle-up" aria-hidden="true"></i>
+      </button>
+      <div style="display: flex; gap: 4px;">
+        <button class="btn btn-secondary controller-button" id="controller-left-button" onclick="scrollButton(-100,0)">
+          <i class="fa fa-angle-left" aria-hidden="true"></i>
+        </button>
+        <button class="btn btn-secondary controller-button" id="controller-right-button" onclick="scrollButton(100,0)">
+          <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </button>
+      </div>
+      <button class="btn btn-secondary controller-button mt-1" id="controller-down-button" onclick="scrollButton(0,100)">
+        <i class="fa fa-angle-down" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</body>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+var sketchPad=document.getElementById('sketchPad');
+var ctx=sketchPad.getContext('2d');
+
+//global variables 
+var isItDrawing=false;
+var position={x:0,y:0};
+var lastPosition=position;
+var radius=2;//initial width of pencil
+var fontStyle='Arimo';
+var fontSize='60px';
+var prevInkNum=0;//use this for smoother ink transitions when doing pens etc.
+var inkType='pencil';//initial ink type of pencil 
+
+//default stylings here:
+sketchPad.style.cursor="url('http://i.cubeupload.com/t2Nszr.png'),auto";
+var color="#1B1B1B";
+ctx.lineCap="round";
+ctx.strokeStyle=color;
+
+
+//event functions 
+sketchPad.addEventListener('mousedown',function(e){
+	isItDrawing=true;
+	lastPosition=currentMousePosition(sketchPad,e);
+},false);
+
+sketchPad.addEventListener('mouseup',function(e){
+	isItDrawing=false;
+},false);
+
+sketchPad.addEventListener('mousemove',function(e){
+	position=currentMousePosition(sketchPad,e);
+},false);
+
+function currentMousePosition(sketchDom,mouseEvent){
+	var rect=sketchDom.getBoundingClientRect();
+	return {x: mouseEvent.clientX-rect.left, y: mouseEvent.clientY-rect.top};
+}
+
+window.requestAnimFrame= (function (callback){
+	return window.requestAnimationFrame ||
+	window.webkitRequestAnimationFrame ||
+	window.mozRequestAnimationFrame ||
+	window.oRequestAnimationFrame ||
+	window.msRequestAnimationFrame ||
+	function (callback){
+		window.setTimeout(callback,1000/60);
+	};
+})();
+
+//the actual function for drawing
+function draw(){
+	if(isItDrawing){
+		if(inkType==='pen'){
+			radius=randomInkWidth();
+			radius=smoothMaker(prevInkNum,radius);
+		}
+		else if(inkType==='text'){
+			//return null;
+			isItDrawing=false;
+			typer();
+			return null;
+		}
+		//console.log(radius);//test
+		ctx.lineWidth=radius;
+		ctx.beginPath();
+		if(inkType!=='eraser'){
+			ctx.shadowBlur=1;
+			ctx.shadowColor=color;
+		}
+		ctx.moveTo(lastPosition.x,lastPosition.y);
+		ctx.lineTo(position.x,position.y);
+		ctx.stroke();
+		ctx.fill();
+		lastPosition=position;
+		prevInkNum=radius;
+		console.log(prevInkNum);//test
+	}
+}
+
+function typer(){
+	//console.log(position.x);//test
+	var typedText=prompt("Please type your text below:");
+	if(typedText===null){
+		return null;
+	}
+	//ctx.font = "30px Special Elite";
+	ctx.font=fontSize+" "+fontStyle;
+	ctx.fillStyle=color;
+	ctx.fillText(typedText,position.x+18,position.y+35);
+}
+
+(function drawingLoop(){
+	requestAnimFrame(drawingLoop);
+	draw();
+})();
+
+
+//button functions below
+function eraser(){
+	sketchPad.style.cursor="url('http://i.cubeupload.com/9FGyu5.png'),auto";
+	inkType='eraser';
+	ctx.shadowBlur=0;
+	ctx.shadowColor="black";
+	ctx.beginPath();
+	//ctx.strokeStyle='white';
+	radius=25;
+	ctx.lineWidth=radius;
+	ctx.globalCompositeOperation = 'destination-out';
+	//console.log("eraser activated");//test
+}
+
+function pencil(){
+	sketchPad.style.cursor="url('http://i.cubeupload.com/t2Nszr.png'),auto";
+	inkType='pencil';
+	ctx.beginPath();
+	ctx.globalCompositeOperation = 'source-over';
+	ctx.strokeStyle=color;
+	radius=2;
+	ctx.lineWidth=radius;
+}
+
+function pen(){
+	//prevInkNum=5;
+	prevInkNum=randomInkWidth();
+	inkType='pen';
+	ctx.globalCompositeOperation = 'source-over';
+	ctx.strokeStyle=color;
+	sketchPad.style.cursor="url('http://i.cubeupload.com/Jp8hhU.png'),auto";
+}
+
+function clearAll(){
+	var confirmation=confirm('Are you sure you want to remove everything?');
+	if(confirmation){
+		ctx.clearRect(0, 0, sketchPad.width, sketchPad.height);
+	}
+	else{
+		return null;
+	}
+}
+
+//this currently mearly opens the picture in a new window where you can right-click and save; must work on integrating the base64 image string into upload for rails paperclip
+function savePic(){
+	var picURL=sketchPad.toDataURL();
+	//console.log(picURL);//test
+	window.open(picURL);
+}
+
+function textBox(){
+pencil();	sketchPad.style.cursor="url('http://i.cubeupload.com/fRq0d9.png'),auto";
+	inkType='text';
+}
+
+function setFont(name){
+	fontStyle=name;
+}
+
+function setFontSize(size){
+	fontSize=size;
+}
+
+function setColor(colorName){
+	color=colorName;
+	if(inkType==='pen'){
+		pen();
+	}
+	else if(inkType==='pencil'){
+		pencil();
+	}
+}
+
+//*** CONTROL PAD CODE BELOW
+function scrollButton(x,y){
+		window.scrollBy(x,y);
+}
+//**** END OF CONTROL PAD CODE
+
+//mobile touch functionality below
+
+sketchPad.addEventListener('touchstart',function(e){
+	position=currentTouchPosition(sketchPad,e);
+	var touch=e.touches[0];
+	var mouseEvent=new MouseEvent('mousedown',{
+		clientX:touch.clientX,clientY:touch.clientY
+	});
+	sketchPad.dispatchEvent(mouseEvent);
+},false);
+
+sketchPad.addEventListener('touchend',function(e){
+	var mouseEvent=new MouseEvent('mouseup',{});
+	sketchPad.dispatchEvent(mouseEvent);
+},false);
+
+sketchPad.addEventListener('touchmove',function(e){
+	var touch=e.touches[0];
+	var mouseEvent=new MouseEvent('mousemove',{
+		clientX:touch.clientX,clientY:touch.clientY
+	});
+	sketchPad.dispatchEvent(mouseEvent); 
+},false);
+
+
+function currentTouchPosition(sketchDom,touchEvent){
+	var rect=sketchDom.getBoundingClientRect();
+	return {
+		x: touchEvent.touches[0].clientX-rect.left,
+		y: touchEvent.touches[0].clientY-rect.top
+	};
+}
+
+
+
+document.body.addEventListener('touchstart',function(e){
+	if(e.target==sketchPad){
+		e.preventDefault();
+	}
+},false);
+
+document.body.addEventListener('touchend',function(e){
+	if(e.target==sketchPad){
+		e.preventDefault();
+	}
+},false);
+
+document.body.addEventListener('touchmove',function(e){
+	if(e.target==sketchPad){
+		e.preventDefault();
+	}
+},false);
+
+
+
+//helpers below
+
+//returns a random ink width
+function randomInkWidth(){
+	var arr=[3,4,5];
+	var randomNumber=Math.floor((Math.random() * 3) + 0);
+	return arr[randomNumber];
+}
+
+//takes the previous ink width and the current randomly chosen one and returns a width somewhere inbetween that'll look smooth
+//don't think it's useful anymore since I changed the array of pen ink widths to be between 3 and 5
+function smoothMaker(prev,curr){
+	if(curr===prev){
+		return curr;
+	}
+	else if(prev-curr>2){
+		return prev-2;
+	}
+	else if(curr-prev>2){
+		return prev+2;
+	}
+	else{
+		return curr;
+	}
+}
+</script>
+{% endblock %}

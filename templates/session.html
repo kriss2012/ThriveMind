@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="tm-container" style="padding-top: 100px; padding-bottom: 60px; min-height: calc(100vh - 80px);">
+  {% if session_active %}
+  <div class="row" style="gap: 2rem 0;">
+    
+    <!-- Main Content -->
+    <div class="col-lg-8">
+      <div class="tm-card" style="padding: 3rem;">
+        <div class="d-flex justify-content-between align-items-center flex-wrap" style="margin-bottom: 1rem;">
+          <h1 style="font-size: 2.5rem; margin: 0; color: var(--foreground);">Week {{therapy.week_no}}</h1>
+          <span style="background-color: rgba(32, 185, 120, 0.1); color: var(--success); padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: 600; font-size: 0.875rem;">In Progress</span>
+        </div>
+        
+        <p style="font-size: 1.125rem; color: var(--muted); margin-bottom: 2rem;">
+          Therapy Session with <strong style="color: var(--primary);">{{cbt.therapist.name}}</strong>
+          <br>
+          <span style="font-size: 0.875rem; opacity: 0.8;">Started at {{cbt.session_time|time:"H:i" }}</span>
+        </p>
+
+        <div style="background-color: var(--background-secondary); border-radius: var(--radius-md); padding: 2rem; margin-bottom: 2rem; border-left: 4px solid var(--primary);">
+          <h3 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--foreground);">This Week's Challenge</h3>
+          <p style="font-size: 1.125rem; line-height: 1.7; margin: 0; color: rgba(255,255,255,0.9);">
+            {{therapy.challenge}}
+          </p>
+        </div>
+
+        <div style="margin-bottom: 2rem;">
+          <h3 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--foreground);">Behavioral Activation Exercise</h3>
+          <p style="color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem;">
+            Part of the process is looking at obstacles to taking part in an experience and deciding how to get past those obstacles by breaking the process down into smaller steps. This is achieved by our <strong>Draw My Life</strong> feature.
+            In each week of the session, you'll be assigned to draw something on the sketchpad.
+          </p>
+          <a href="{% url 'draw' therapy.pk %}" class="tm-btn tm-btn-primary">Launch Sketchpad</a>
+        </div>
+
+        <hr style="border-color: var(--border); margin: 3rem 0;">
+
+        <div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem; color: var(--foreground);">Session Notes</h3>
+          <form>
+            <textarea class="form-control" rows="4" placeholder="Jot down your thoughts or questions for your therapist..." style="background-color: var(--background); border: 1px solid var(--border); color: var(--foreground); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1rem; width: 100%;"></textarea>
+            <button type="submit" class="tm-btn tm-btn-secondary">Save Notes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+      <div class="tm-card" style="margin-bottom: 2rem; background: var(--gradient-primary); color: white;">
+        <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem; color: rgba(255,255,255,0.9);">Your Therapist</h3>
+        <ul class="list-unstyled" style="margin: 0; font-size: 1rem; opacity: 0.9;">
+          <li style="margin-bottom: 0.75rem;"><strong>{{therapist.name}}</strong></li>
+          <li style="margin-bottom: 0.75rem;">Contact: {{therapist.contact}}</li>
+          <li>Region: {{therapist.region}}</li>
+        </ul>
+      </div>
+
+      <div class="tm-card">
+        <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem; color: var(--foreground);">Past Sessions</h3>
+        <ul class="list-unstyled" style="margin: 0;">
+          {% for th in attended %}
+            {% if th.is_past_due %}
+            <li style="margin-bottom: 0.75rem;">
+              <a href="#" style="color: var(--primary); text-decoration: none; display: flex; align-items: center;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Week {{th.week_no}}
+              </a>
+            </li>
+            {% endif %}
+          {% empty %}
+            <li class="text-muted">No past sessions yet.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+  {% else %}
+  <div class="tm-card text-center" style="max-width: 500px; margin: 4rem auto; padding: 4rem 2rem;">
+    <div style="width: 64px; height: 64px; background-color: rgba(15, 159, 154, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+    </div>
+    <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--foreground);">Session Unavailable</h2>
+    <p style="color: var(--muted); margin-bottom: 2rem;">This session hasn't started yet or is no longer active.</p>
+    <a href="{% url 'dashboard' %}" class="tm-btn tm-btn-primary w-100">Return to Dashboard</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
